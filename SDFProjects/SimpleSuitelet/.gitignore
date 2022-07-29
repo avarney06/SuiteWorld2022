@@ -15,10 +15,10 @@ node_modules
 # TypeScript cache
 *.tsbuildinfo
 
-# Logs
-logs
+
 *.log
 npm-debug.log*
+!customStubs/*
 
 # Packaged SDF projects
 build

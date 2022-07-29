@@ -22,7 +22,7 @@ jobs:
       - node/install-packages
       - run:
           name: "Say hello"
-          command: npm --prefix ./SDFProjects/SimpleSuitelet run test
+          command: npm run test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

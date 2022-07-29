@@ -20,12 +20,16 @@ jobs:
       - node/install:
           node-version: "14.16.0"
       #- node/install-packages
-      - run: |
-          cd SDFProjects/SimpleSuitelet
-          npm install
+      - run: 
+          name: NPM Install
+          command: |
+            cd SDFProjects/SimpleSuitelet
+            npm install
       - run:
           name: 'Run Suitelet Tests'
-          command:  npm run test
+          command: | 
+            cd SDFProjects/SimpleSuitelet
+            npm run test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

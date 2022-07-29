@@ -6,9 +6,10 @@
 define([
     'N/ui/serverWidget',
     'N/record',
-    'N/search'
+    'N/search',
+    'N/log'
 ],
-    (serverWidget, record, search) => {
+    (serverWidget, record, search, log) => {
         const onRequest = context => {
             log.debug('Context', context);
             let form = serverWidget.createForm({

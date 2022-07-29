@@ -2,6 +2,24 @@ const SuiteCloudJestConfiguration = require("@oracle/suitecloud-unit-testing/jes
 const cliConfig = require("./suitecloud.config");
 
 module.exports = SuiteCloudJestConfiguration.build({
-	projectFolder: cliConfig.defaultProjectFolder,
-	projectType: SuiteCloudJestConfiguration.ProjectType.ACP,
+    projectFolder: cliConfig.defaultProjectFolder,
+    projectType: SuiteCloudJestConfiguration.ProjectType.ACP,
+    customStubs: [
+        {
+            module: "N/ui/serverWidget",
+            path: "<rootDir>/customStubs/ui/serverWidget/serverWidget.js"
+        },
+        {
+            module: "N/ui/serverWidget/forminstance",
+            path: "<rootDir>/customStubs/ui/serverWidget/FormInstance.js"
+        },,
+        {
+            module: "N/ui/serverWidget/field",
+            path: "<rootDir>/customStubs/ui/serverWidget/Field.js"
+        },
+        {
+            module: "N/log",
+            path: "<rootDir>/customStubs/log/log.js"
+        }
+    ]
 });

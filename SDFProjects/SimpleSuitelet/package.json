@@ -1,0 +1,11 @@
+{
+  "name": "suitecloud-project",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7",
+    "@oracle/suitecloud-unit-testing": "^1.2.0"
+  }
+}

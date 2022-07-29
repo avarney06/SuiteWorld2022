@@ -8,7 +8,7 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   netsuite-tests:
-    #working_directory: ~/SDFProjects/SimpleSuitelet
+    working_directory: ~/SimpleSuitelet
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -17,10 +17,9 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout:
-        path: ~/SimpleSuitelet
+          path: ~/SimpleSuitelet
       - node/install:
         node-version: "14.16.0"
-      
       - node/install-packages
       - run:
           name: "Say hello"

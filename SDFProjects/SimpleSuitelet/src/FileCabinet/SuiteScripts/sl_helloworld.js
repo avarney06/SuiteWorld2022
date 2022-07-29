@@ -20,17 +20,19 @@ define([
             log.debug('Parameters', parameters);
             if (context.request.method === 'GET') {
                 let customerId = parameters.customerid;
+                log.audit('Customer Id', customerId);
                 buildGetForm(form, customerId);
             } else {
                 let helloText = parameters.custpage_hello;
                 let customerId = parameters.custpage_customerid;
-                record.submitFields({
+                let savedId = record.submitFields({
                     type: record.Type.CUSTOMER,
                     id: customerId,
                     values: {
                         comments: helloText
                     }
                 });
+                log.audit('Cust Saved', savedId);
                 let customerLookup = getCustomerDetails(customerId);
                 buildPostForm(form, customerLookup);
             }

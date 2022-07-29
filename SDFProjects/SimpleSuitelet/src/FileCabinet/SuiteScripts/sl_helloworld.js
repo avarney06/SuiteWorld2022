@@ -23,7 +23,7 @@ define([
                 buildGetForm(form, customerId);
             } else {
                 let helloText = parameters.custpage_hello;
-                let customerId = parameters.customerid;
+                let customerId = parameters.custpage_customerid;
                 record.submitFields({
                     type: record.Type.CUSTOMER,
                     id: customerId,
@@ -51,9 +51,18 @@ define([
             })
             .defaultValue = customerLookup.comments;
             form.addField({
+                id: 'custpage_customerid',
+                type: serverWidget.FieldType.TEXT,
+                label: 'Customer Id'
+            })
+            .updateDisplayType({
+                displayType: serverWidget.FieldDisplayType.NODISPLAY
+            })
+            .defaultValue = customerId;
+            form.addField({
                 id: 'custpage_hello',
                 label: 'Hello Text',
-                type: serverWidget.FieldType.TEXT
+                type: serverWidget.FieldType.TEXTAREA
             })
             .defaultValue = 'Hello World';
             form.addSubmitButton({

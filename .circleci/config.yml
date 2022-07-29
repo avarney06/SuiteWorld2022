@@ -23,7 +23,9 @@ jobs:
       - run: |
           cd SDFProjects/SimpleSuitelet
           npm install
-          npm run test
+      - run:
+        name: 'Run Suitelet Tests'
+        command:  npm run test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

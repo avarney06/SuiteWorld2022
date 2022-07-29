@@ -1,3 +1,4 @@
+/*jshint esversion: 9*/
 const SuiteCloudJestUnitTestRunner = require('@oracle/suitecloud-unit-testing/services/SuiteCloudJestUnitTestRunner');
 
 module.exports = {

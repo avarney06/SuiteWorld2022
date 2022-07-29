@@ -1,7 +1,6 @@
 /*jshint esversion: 9*/
 import Suitelet from 'SuiteScripts/sl_helloworld';
 import record from 'N/record';
-import Record from 'N/record/instance';
 import search from 'N/search';
 import serverWidget from 'N/ui/serverWidget';
 import Form from 'N/ui/serverWidget/forminstance';

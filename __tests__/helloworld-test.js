@@ -1,5 +1,5 @@
 /*jshint esversion: 9*/
-import Suitelet from 'SuiteScripts/sl_helloworld';
+import Suitelet from '../SDFProjects/SimpleSuitelet/src/FileCabinet/SuiteScripts/sl_helloworld';
 import record from 'N/record';
 import search from 'N/search';
 import serverWidget from 'N/ui/serverWidget';

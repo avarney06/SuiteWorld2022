@@ -12,8 +12,6 @@ define([], function () {
      * @since 2015.2
      */    
     function Field() {    
-        
-        var that = this;
         /**
          * The internal id of the field.
          * @name Field#id
@@ -44,7 +42,8 @@ define([], function () {
          * @since 2015.2
          */        
         this.updateBreakType = function(options) {
-            return Field;
+            this.breakType = options.breakType;
+            return this;
         };        
         
         /**
@@ -58,7 +57,8 @@ define([], function () {
          * @since 2015.2
          */        
         this.updateLayoutType = function(options) {
-            return Field;
+            this.layoutType = options.layoutType;
+            return this;
         };        
         
         /**
@@ -134,7 +134,10 @@ define([], function () {
          *
          * @since 2015.2
          */        
-        this.updateDisplayType = function(options) {};
+        this.updateDisplayType = function(options) {
+            this.displayType = options.displayType;
+            return this;
+        };
         
         /**
          * If Rich Text Editing is enabled, you can use this property to set the height of the rich text field (in pixels). The minimum value is 100 pixels and the maximum value is 500 pixels.

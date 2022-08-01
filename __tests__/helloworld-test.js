@@ -4,14 +4,12 @@ import record from 'N/record';
 import search from 'N/search';
 import serverWidget from 'N/ui/serverWidget';
 import Form from 'N/ui/serverWidget/forminstance';
-import Field from 'N/ui/serverWidget/field';
 
 jest.mock('N/record');
 jest.mock('N/record/instance');
 jest.mock('N/search');
-jest.mock('N/ui/serverWidget');
-jest.mock('N/ui/serverWidget/forminstance');
-jest.mock('N/ui/serverWidget/field');
+jest.spyOn(serverWidget, 'createForm');
+jest.spyOn(Form, 'addField');
 
 beforeEach(() => {
     jest.clearAllMocks();
@@ -50,20 +48,20 @@ describe('Suitelet GET Test', () => {
             ]
         };
 
-        serverWidget.createForm.mockReturnValue(Form);
-        Form.addField.mockReturnValue(Field);
-        Field.updateDisplayType.mockReturnValue(Field);
         search.lookupFields.mockReturnValue(customerLookup);
 
         Suitelet.onRequest(context);
 
         expect(search.lookupFields).toHaveBeenCalledWith(lookupOptions);
+        expect(serverWidget.createForm).toBeCalled();
         expect(Form.addField).toHaveBeenCalledWith({
             id: 'custpage_hello',
             label: 'Hello Text',
             type: serverWidget.FieldType.TEXTAREA
         });
-        expect(Field.defaultValue).toBe("Hello World");
+        expect(Form.getField({id: 'custpage_customerid'}).displayType).toBe(serverWidget.FieldDisplayType.NODISPLAY);
+        expect(Form.getField({id: 'custpage_customerid'}).defaultValue).toBe(context.request.parameters.customerid);
+        expect(Form.getField({id: 'custpage_hello'}).defaultValue).toBe("Hello World");
     });
 });
 
@@ -101,9 +99,6 @@ describe('Suitelet POST Test', () => {
             ]
         };
 
-        serverWidget.createForm.mockReturnValue(Form);
-        Form.addField.mockReturnValue(Field);
-        Field.updateDisplayType.mockReturnValue(Field);
         search.lookupFields.mockReturnValue(customerLookup);
         record.submitFields.mockReturnValue(6);
 
@@ -117,6 +112,6 @@ describe('Suitelet POST Test', () => {
                 comments: context.request.parameters.custpage_hello
             }
         });
-        expect(Field.defaultValue).toBe(`Customer Id ${customerLookup.internalid[0].value} was saved successfully.`);
+        expect(Form.getField({id: 'custpage_success'}).defaultValue).toBe(`Customer Id ${customerLookup.internalid[0].value} was saved successfully.`);
     });
 });

@@ -31,7 +31,11 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT when title parameter is missing
      * @since 2015.2
      */    
-    serverWidget.prototype.createForm = function(options) {};    
+    serverWidget.prototype.createForm = function(options) {
+        var form = Form;
+        form.title = options.title;
+        return form;
+    };    
     
     /**
      * Instantiate a List object (specifying the title, and whether to hide the navigation bar)

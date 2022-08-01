@@ -11,6 +11,8 @@ define(['./Button', './Field', './FieldGroup', './Sublist', './Tab'], function(B
      */    
     function Form() {
         
+        this.fields = [];
+        this.buttons = [];
         /**
          * The form title
          * @name Form#title
@@ -107,7 +109,12 @@ define(['./Button', './Field', './FieldGroup', './Sublist', './Tab'], function(B
          * @since 2015.2
          */        
         this.addField = function(options) {
-            return Field;
+            var field = Object.assign({}, Field);
+            field.id = options.id;
+            field.label = options.label;
+            field.type = options.type;
+            this.fields.push(field);
+            return field;
         };
         
         /**
@@ -235,7 +242,11 @@ define(['./Button', './Field', './FieldGroup', './Sublist', './Tab'], function(B
          * @since 2015.2
          */        
         this.getField = function(options) {
-            return Field;
+            var field = this.fields.find(function(field) {
+                return field.id === options.id;
+            });
+            console.log(field);
+            return field;
         };        
         
         /**

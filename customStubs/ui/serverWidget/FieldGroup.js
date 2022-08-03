@@ -9,8 +9,8 @@ define([], function () {
      * @constructor
      *
      * @since 2015.2
-     */    
-    function FieldGroup() {    
+     */
+    function FieldGroup() {
         
         /**
          * Indicates whether the field group can be collapsed.
@@ -21,8 +21,8 @@ define([], function () {
          * @type {boolean}
          *
          * @since 2015.2
-         */        
-        this.isCollapsible = undefined;        
+         */
+        this.isCollapsible = undefined;
         /**
          * Indicates whether field group is collapsed or expanded.
          * The default value is false, which means that when the page loads, the field group will not appear collapsed.
@@ -32,8 +32,8 @@ define([], function () {
          * @type {boolean}
          *
          * @since 2015.2
-         */        
-        this.isCollapsed = undefined;        
+         */
+        this.isCollapsed = undefined;
         /**
          * Indicates whether the field group border is hidden.
          * If set to false, a border around the field group is displayed.
@@ -42,8 +42,8 @@ define([], function () {
          * @type {boolean}
          *
          * @since 2015.2
-         */        
-        this.isBorderHidden = undefined;        
+         */
+        this.isBorderHidden = undefined;
         /**
          * Indicates whether the fields in this group display in a single column
          * The default value is false
@@ -51,16 +51,16 @@ define([], function () {
          * @type {boolean}
          *
          * @since 2015.2
-         */        
-        this.isSingleColumn = undefined;        
+         */
+        this.isSingleColumn = undefined;
         /**
          * The label of the field group
          * @name FieldGroup#label
          * @type {string}
          *
          * @since 2015.2
-         */        
-        this.label = undefined;        
+         */
+        this.label = undefined;
         /**
          * Returns the object type name
          * @restriction Server SuiteScript only
@@ -68,8 +68,10 @@ define([], function () {
          * @return {string}
          *
          * @since 2015.2
-         */        
-        this.toString = function() {};        
+         */
+        this.toString = function() {
+            return "serverWidget.FieldGroup";
+        };
         
         /**
          * get JSON format of the object
@@ -78,8 +80,10 @@ define([], function () {
          * @return {Object}
          *
          * @since 2015.2
-         */        
-        this.toJSON = function() {};        
+         */
+        this.toJSON = function() {
+            return {"label": this.label};
+        };
     }
 
     return new FieldGroup();

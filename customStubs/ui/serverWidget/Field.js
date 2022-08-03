@@ -1,3 +1,4 @@
+/*jshint esversion: 5*/
 define([], function () {
         
     /**
@@ -10,8 +11,26 @@ define([], function () {
      * @constructor
      *
      * @since 2015.2
-     */    
-    function Field() {    
+     */
+    function Field() {
+        /**
+         * The value(s) of the field.
+         * @name Field#value
+         * @type {string|Array<string>}
+         * @readonly
+         *
+         * @since 2015.2
+         */
+        this.value = undefined;
+        /**
+         * The value(s) of the field.
+         * @name Field#text
+         * @type {string|Array<string>}
+         * @readonly
+         *
+         * @since 2015.2
+         */
+        this.text = undefined;
         /**
          * The internal id of the field.
          * @name Field#id
@@ -19,8 +38,8 @@ define([], function () {
          * @readonly
          *
          * @since 2015.2
-         */        
-        this.id = undefined;        
+         */
+        this.id = undefined;
         /**
          * The type of the field.
          * @name Field#FieldType
@@ -28,8 +47,8 @@ define([], function () {
          * @readonly
          *
          * @since 2015.2
-         */        
-        this.type = undefined;        
+         */
+        this.type = undefined;
         /**
          * Updates the break type of the field. Set this value using the FieldBreakType enum.
          * @restriction Server SuiteScript only
@@ -40,12 +59,12 @@ define([], function () {
          * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT when breakType parameter is missing
          *
          * @since 2015.2
-         */        
+         */
         this.updateBreakType = function(options) {
             this.breakType = options.breakType;
             return this;
-        };        
-        
+        };
+
         /**
          * Updates the layout type for the field.
          * @restriction Server SuiteScript only
@@ -55,12 +74,12 @@ define([], function () {
          * @return {Field}
          * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT when layoutType parameter is missing
          * @since 2015.2
-         */        
+         */
         this.updateLayoutType = function(options) {
             this.layoutType = options.layoutType;
             return this;
-        };        
-        
+        };
+
         /**
          * The text displayed for a link in place of the URL.
          * This property is only supported on scripted fields created using the N/ui/serverWidget Module.
@@ -68,8 +87,8 @@ define([], function () {
          * @type {string}
          *
          * @since 2015.2
-         */        
-        this.linkText = undefined;        
+         */
+        this.linkText = undefined;
         /**
          * The maximum length, in characters, of the field (only valid for text, rich text, long text, and textarea fields).
          * This property is only supported on scripted fields created using the N/ui/serverWidget Module.
@@ -77,8 +96,8 @@ define([], function () {
          * @type {number}
          *
          * @since 2015.2
-         */        
-        this.maxLength = undefined;        
+         */
+        this.maxLength = undefined;
         /**
          * Indicates whether the field is mandatory or optional.
          * If set to true, then the field is defined as mandatory.
@@ -88,8 +107,8 @@ define([], function () {
          * @type {boolean}
          *
          * @since 2015.2
-         */        
-        this.isMandatory = undefined;        
+         */
+        this.isMandatory = undefined;
         /**
          * The alias for the field. By default the alias is the field id
          * This property is only supported on scripted fields created using the N/ui/serverWidget Module.
@@ -97,16 +116,16 @@ define([], function () {
          * @type {string}
          *
          * @since 2015.2
-         */        
-        this.alias = undefined;        
+         */
+        this.alias = undefined;
         /**
          * The default value of the field
          * @name Field#defaultValue
          * @type {string}
          *
          * @since 2015.2
-         */        
-        this.defaultValue = undefined;        
+         */
+        this.defaultValue = undefined;
         /**
          * Sets the height and width for the field. Only supported on multi-selects,
          * long text, rich text, and fields that get rendered as INPUT (type=text) fields.
@@ -120,9 +139,12 @@ define([], function () {
          * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT when height or width parameter is missing
          *
          * @since 2015.2
-         */        
-        this.updateDisplaySize = function(options) {};        
-        
+         */
+        this.updateDisplaySize = function(options) {
+            this.height = options.height;
+            this.width = options.width;
+        };
+
         /**
          * Updates the display type for the field.
          * @restriction Server SuiteScript only
@@ -138,15 +160,15 @@ define([], function () {
             this.displayType = options.displayType;
             return this;
         };
-        
+
         /**
          * If Rich Text Editing is enabled, you can use this property to set the height of the rich text field (in pixels). The minimum value is 100 pixels and the maximum value is 500 pixels.
          * @name Field#richTextHeight
          * @type {number}
          *
          * @since 2015.2
-         */        
-        this.richTextHeight = undefined;        
+         */
+        this.richTextHeight = undefined;
         /**
          * If Rich Text Editing is enabled, you can use this property to set the width of the rich text field (in pixels). The minimum value is 250 pixels and the maximum value is 800 pixels.
          * @name Field#richTextWidth
@@ -154,7 +176,7 @@ define([], function () {
          *
          * @since 2015.2
          */        
-        this.richTextWidth = undefined;        
+        this.richTextWidth = undefined;
         /**
          * The label of the field
          * There is a 40-character limit for custom field labels.
@@ -162,16 +184,16 @@ define([], function () {
          * @type {string}
          *
          * @since 2015.2
-         */        
-        this.label = undefined;        
+         */
+        this.label = undefined;
         /**
          * There is a 40-character limit for custom field labels.
          * @name Field#padding
          * @type {number}
          *
          * @since 2015.2
-         */        
-        this.padding = undefined;        
+         */
+        this.padding = undefined;
         /**
          * Get the select options for a field
          * The internal ID and label of the options for a select field as name/value pairs is returned.
@@ -184,9 +206,30 @@ define([], function () {
          * @return {Array<Object>}
          *
          * @since 2015.2
-         */        
-        this.getSelectOptions = function(options) {};        
-        
+         */
+        this.getSelectOptions = function(options) {
+            if (options === undefined || options.filter === undefined) {
+                return this.selectOptions.slice(0, 1000);
+            }
+            var filterType = 'contains';
+            if (options.filteroperator === "is" || options.filteroperator === "startswith") {
+                filterType = options.filteroperator;
+            }
+            return this.selectOptions
+            .filter(function(option) {
+                var textLowerCase = (""+option.text).toLowerCase();
+                var filterLowerCase = (""+options.filter).toLowerCase();
+                switch(filterType) {
+                    case 'contains':
+                        return textLowerCase.indexOf(filterLowerCase) > -1;
+                    case 'is':
+                        return textLowerCase === filterLowerCase;
+                    case 'startswith':
+                        return textLowerCase.lastIndexOf(filterLowerCase) === 0;
+                }
+            }).slice(0, 1000);
+        };
+
         /**
          * Set help text for a field
          * When the field label is clicked, a popup displays the help text defined using this method.
@@ -199,17 +242,43 @@ define([], function () {
          * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT when help parameter is missing
          * @throws {SuiteScriptError} SSS_INVALID_TYPE_ARG when help parameter is not string
          * @since 2015.2
-         */        
-        this.setHelpText = function(options) {};        
-        
+         */
+        this.setHelpText = function(options) {
+            if (options === undefined) {
+                throw validateFail(
+                    "error.SuiteScriptError",
+                    "SSS_MISSING_REQD_ARGUMENT",
+                    "Field.setHelpText: Missing a required argument: options"
+                );
+            }
+            if (options.help === undefined) {
+                throw validateFail(
+                    "error.SuiteScriptError",
+                    "SSS_MISSING_REQD_ARGUMENT",
+                    "Field.setHelpText: Missing a required argument: options.help"
+                );
+            }
+            if (typeof options.help !== "string") {
+                throw validateFail(
+                    "error.SuiteScriptError",
+                    "SSS_INVALID_TYPE_ARG",
+                    "You have entered an invalid type argument: help"
+                );
+            }
+            this.helpText = options.help;
+            if (options.showInlineForAssistant === true) {
+                this.showInlineForAssistant = true;
+            }
+        };
+
         /**
          * Help text for the field
          * @name Field#helpText
          * @type {string}
          *
          * @since 2019.2
-         */        
-        this.helpText = undefined;        
+         */
+        this.helpText = undefined;
         /**
          * Adds the select options that appears in the dropdown of a field.
          * After you create a select or multi-select field that is sourced from a record or list, you cannot add additional values with Field.addSelectOption(options). The select values are determined by the source record or list.
@@ -223,9 +292,38 @@ define([], function () {
          * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT when value or text parameter is missing
          *
          * @since 2015.2
-         */        
-        this.addSelectOption = function(options) {};        
-        
+         */
+        this.addSelectOption = function(options) {
+            if (options.value === undefined) {
+                throw validateFail(
+                    "error.SuiteScriptError",
+                    "SSS_MISSING_REQD_ARGUMENT",
+                    "Field.addSelectOption: Missing a required argument: options.value"
+                );
+            }
+            if (options.text === undefined) {
+                throw validateFail(
+                    "error.SuiteScriptError",
+                    "SSS_MISSING_REQD_ARGUMENT",
+                    "Field.addSelectOption: Missing a required argument: options.text"
+                );
+            }
+            var option = {};
+            option.value = options.value;
+            option.text = options.text;
+            if (options.isSelected) {
+                option.isSelected = true;
+            }
+            this.selectOptions.push(option);
+        };
+
+        /**
+         * Array of Select Options
+         * @name Form#selectOptions
+         * @type {Array}
+         */
+         this.selectOptions = [];
+
         /**
          * Returns the object type name
          * @restriction Server SuiteScript only
@@ -233,9 +331,9 @@ define([], function () {
          * @return {string}
          *
          * @since 2015.2
-         */        
-        this.toString = function() {};        
-        
+         */
+        this.toString = function() {};
+
         /**
          * get JSON format of the object
          * @restriction Server SuiteScript only
@@ -243,8 +341,20 @@ define([], function () {
          * @return {Object}
          *
          * @since 2015.2
-         */        
-        this.toJSON = function() {};        
+         */
+        this.toJSON = function() {};
+    }
+
+    function validateFail(type, name, message) {
+        return {
+            "type": type,
+            "name": name,
+            "message": message,
+            "cause": {
+                "name": name,
+                "message": message
+            }
+        };
     }
 
     return new Field();

@@ -18,16 +18,16 @@ define([], function () {
          * @type {string}
          *
          * @since 2015.2
-         */        
-        this.label = undefined;        
+         */
+        this.label = undefined;
         /**
          * The Tab's field help
          * @name Tab#helpText
          * @type {string}
          *
          * @since 2015.2
-         */        
-        this.helpText = undefined;        
+         */
+        this.helpText = undefined;
         /**
          * Returns the object type name
          * @restriction Server SuiteScript only
@@ -36,8 +36,10 @@ define([], function () {
          *
          * @since 2015.2
          */        
-        this.toString = function() {};        
-        
+        this.toString = function() {
+            return "serverWidget.Tab";
+        };
+
         /**
          * get JSON format of the object
          * @restriction Server SuiteScript only
@@ -45,8 +47,10 @@ define([], function () {
          * @return {Object}
          *
          * @since 2015.2
-         */        
-        this.toJSON = function() {};
+         */
+        this.toJSON = function() {
+            return {"label": this.label};
+        };
     }
 
     return new Tab();

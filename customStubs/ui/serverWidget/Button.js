@@ -1,3 +1,4 @@
+/*jshint esversion: 5*/
 define([], function () {
         
     /**
@@ -10,8 +11,8 @@ define([], function () {
      * @constructor
      *
      * @since 2015.2
-     */    
-    function Button() {    
+     */
+    function Button() {
         
         /**
          * Indicates whether a button is grayed-out and disabled.
@@ -21,8 +22,8 @@ define([], function () {
          * @type {boolean}
          *
          * @since 2015.2
-         */        
-        this.isDisabled = undefined;        
+         */
+        this.isDisabled = undefined;
         /**
          * The label of the button
          * You can use this property to rename a button based on context, for example to re-label a button for particular users that are viewing a page.
@@ -30,8 +31,8 @@ define([], function () {
          * @type {string}
          *
          * @since 2015.2
-         */        
-        this.label = undefined;        
+         */
+        this.label = undefined;
         /**
          * Indicates whether the button is hidden in the UI.
          * The default value is false, which means the button is visible.
@@ -40,8 +41,8 @@ define([], function () {
          * @type {boolean}
          *
          * @since 2015.2
-         */        
-        this.isHidden = undefined;        
+         */
+        this.isHidden = undefined;
         /**
          * Returns the object type name
          * @restriction Server SuiteScript only
@@ -49,8 +50,10 @@ define([], function () {
          * @return {string}
          *
          * @since 2015.2
-         */        
-        this.toString = function() {};        
+         */
+        this.toString = function() {
+            return "serverWidget.Button";
+        };
         
         /**
          * get JSON format of the object
@@ -59,8 +62,10 @@ define([], function () {
          * @return {Object}
          *
          * @since 2015.2
-         */        
-        this.toJSON = function() {};        
+         */
+        this.toJSON = function() {
+            return {"label": this.label};
+        };
     }
 
     return new Button();

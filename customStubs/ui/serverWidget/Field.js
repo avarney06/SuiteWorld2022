@@ -14,6 +14,24 @@ define([], function () {
      */
     function Field() {
         /**
+         * The value(s) of the field.
+         * @name Field#value
+         * @type {string|Array<string>}
+         * @readonly
+         *
+         * @since 2015.2
+         */
+        this.value = undefined;
+        /**
+         * The value(s) of the field.
+         * @name Field#text
+         * @type {string|Array<string>}
+         * @readonly
+         *
+         * @since 2015.2
+         */
+        this.text = undefined;
+        /**
          * The internal id of the field.
          * @name Field#id
          * @type {string}

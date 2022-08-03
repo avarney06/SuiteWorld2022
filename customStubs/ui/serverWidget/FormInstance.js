@@ -93,7 +93,6 @@ define(['./Button', './Field', './FieldGroup', './Sublist', './Tab'], function(B
          * @since 2015.2
          */
         this.addButton = function(options) {
-            var button = Object.assign({}, Button);
             if (options.id === undefined) {
                 throw validateFail(
                     "error.SuiteScriptError",
@@ -108,6 +107,7 @@ define(['./Button', './Field', './FieldGroup', './Sublist', './Tab'], function(B
                     "Form.addButton: Missing a required argument: label"
                 );
             }
+            var button = Object.assign({}, Button);
             button.id = options.id;
             button.label = options.label;
             if (options.functionName && typeof options.functionName === "string") {
@@ -262,6 +262,9 @@ define(['./Button', './Field', './FieldGroup', './Sublist', './Tab'], function(B
             if (options.container) {
                 field.container = options.container;
             }
+            if (options.source) {
+                field.source = options.source;
+            }
             this.fields.push(field);
             return field;
         };
@@ -368,21 +371,21 @@ define(['./Button', './Field', './FieldGroup', './Sublist', './Tab'], function(B
                 throw validateFail(
                     "error.SuiteScriptError",
                     "SSS_MISSING_REQD_ARGUMENT",
-                    "Form.addField: Missing a required argument: id"
+                    "Form.addSublist: Missing a required argument: id"
                 );
             }
             if (options.label === undefined) {
                 throw validateFail(
                     "error.SuiteScriptError",
                     "SSS_MISSING_REQD_ARGUMENT",
-                    "Form.addField: Missing a required argument: label"
+                    "Form.addSublist: Missing a required argument: label"
                 );
             }
             if (options.type === undefined) {
                 throw validateFail(
                     "error.SuiteScriptError",
                     "SSS_MISSING_REQD_ARGUMENT",
-                    "Form.addField: Missing a required argument: type"
+                    "Form.addSublist: Missing a required argument: type"
                 );
             }
             if (new serverWidgetSublistType()[options.type.toUpperCase()] === undefined) {

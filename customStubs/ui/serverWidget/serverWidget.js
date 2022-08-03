@@ -1,4 +1,4 @@
-/*jshint unused: false*/
+/*jshint esversion: 5*/
 define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Assistant, Form, List){
 /**
  * SuiteScript module
@@ -8,7 +8,7 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
  *
  */
     var serverWidget = function() {};
-        
+
     /**
      * Instantiate an assistant object (specifying the title, and whether to hide the menu)
      * @restriction Server SuiteScript only
@@ -19,7 +19,30 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT when title parameter is missing
      * @since 2015.2
      */    
-    serverWidget.prototype.createAssistant = function(options) {};    
+    serverWidget.prototype.createAssistant = function(options) {
+        if (options === undefined) {
+            throw validateFail(
+                "error.SuiteScriptError",
+                "SSS_MISSING_REQD_ARGUMENT",
+                "serverWidget.createAssistant: Missing a required argument: options"
+                );
+        }
+        if (options.title === undefined) {
+            throw validateFail(
+                "error.SuiteScriptError",
+                "SSS_MISSING_REQD_ARGUMENT",
+                "serverWidget.createAssistant: Missing a required argument: options.title"
+            );
+        }
+        options.hideNavBar = options.hideNavBar || false;
+        if (typeof options.hideNavBar !== "boolean") {
+            options.hideNavBar = false;
+        }
+        var assistant = Object.assign({}, Assistant);
+        assistant.title = ""+options.title;
+        assistant.hideNavBar = options.hideNavBar;
+        return assistant;
+    };
     
     /**
      * Instantiate a form object (specifying the title, and whether to hide the menu)
@@ -32,11 +55,30 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * @since 2015.2
      */    
     serverWidget.prototype.createForm = function(options) {
-        var form = Form;
-        form.title = options.title;
+        if (options === undefined) {
+            throw validateFail(
+                "error.SuiteScriptError",
+                "SSS_MISSING_REQD_ARGUMENT",
+                "serverWidget.createForm: Missing a required argument: options"
+                );
+        }
+        if (options.title === undefined) {
+            throw validateFail(
+                "error.SuiteScriptError",
+                "SSS_MISSING_REQD_ARGUMENT",
+                "serverWidget.createForm: Missing a required argument: options.title"
+            );
+        }
+        options.hideNavBar = options.hideNavBar || false;
+        if (typeof options.hideNavBar !== "boolean") {
+            options.hideNavBar = false;
+        }
+        var form = Object.assign({}, Form);
+        form.title = ""+options.title;
+        form.hideNavBar = options.hideNavBar;
         return form;
-    };    
-    
+    };
+
     /**
      * Instantiate a List object (specifying the title, and whether to hide the navigation bar)
      * @restriction Server SuiteScript only
@@ -47,8 +89,31 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT when title parameter is missing
      * @since 2015.2
      */    
-    serverWidget.prototype.createList = function(options) {};    
-    
+    serverWidget.prototype.createList = function(options) {
+        if (options === undefined) {
+            throw validateFail(
+                "error.SuiteScriptError",
+                "SSS_MISSING_REQD_ARGUMENT",
+                "serverWidget.createList: Missing a required argument: options"
+                );
+        }
+        if (options.title === undefined) {
+            throw validateFail(
+                "error.SuiteScriptError",
+                "SSS_MISSING_REQD_ARGUMENT",
+                "serverWidget.createList: Missing a required argument: options.title"
+            );
+        }
+        options.hideNavBar = options.hideNavBar || false;
+        if (typeof options.hideNavBar !== "boolean") {
+            options.hideNavBar = false;
+        }
+        var list = Object.assign({}, List);
+        list.title = ""+options.title;
+        list.hideNavBar = options.hideNavBar;
+        return list;
+    };
+
     /**
      * Enumeration that holds the values for supported field types. This enum is used to set the value of the type parameter when Form.addField(options) is called.
      *
@@ -60,7 +125,7 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * Radio buttons that are inside one container are exclusive. The method addField on form has an optional parameter container. For an example, see FieldGroup.label.
      * @enum {string}
      * @readonly
-     */    
+     */
     function serverWidgetFieldType() {
         this.CHECKBOX = 'CHECKBOX';
         this.CURRENCY = 'CURRENCY';
@@ -88,9 +153,9 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
         this.TIMEOFDAY = 'TIMEOFDAY';
         this.URL = 'URL';
     }
-    
-    serverWidget.prototype.FieldType = new serverWidgetFieldType();    
-    
+
+    serverWidget.prototype.FieldType = new serverWidgetFieldType();
+
     /**
      * Enumeration that holds the string values for supported page link types on a form. This enum is used to set the value of the type parameter when Form.addPageLink(options) is called.
      * BREADCRUMB - Link appears on the top-left corner after the system bread crumbs
@@ -98,14 +163,14 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * @enum {string}
      * @readonly
      *
-     */    
+     */
     function serverWidgetFormPageLinkType() {
         this.BREADCRUMB = 'BREADCRUMB';
         this.CROSSLINK = 'CROSSLINK';
     }
-    
-    serverWidget.prototype.FormPageLinkType = new serverWidgetFormPageLinkType();    
-    
+
+    serverWidget.prototype.FormPageLinkType = new serverWidgetFormPageLinkType();
+
     /**
      * Enumeration that holds the string values for valid sublist types. This enum is used to define the type parameter when Form.addSublist(options) is called.
      * INLINEEDITOR and EDITOR:
@@ -120,16 +185,16 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * STATICLIST: This type of sublist is read-only. It cannot be edited in the UI, and it is not available for scripting.
      * @enum {string}
      * @readonly
-     */    
+     */
     function serverWidgetSublistType() {
         this.EDITOR = 'EDITOR';
         this.INLINEEDITOR = 'INLINEEDITOR';
         this.LIST = 'LIST';
         this.STATICLIST = 'STATICLIST';
     }
-    
-    serverWidget.prototype.SublistType = new serverWidgetSublistType();    
-    
+
+    serverWidget.prototype.SublistType = new serverWidgetSublistType();
+
     /**
      * Enumeration that holds the string values for supported field break types. This enum is used to set the value of the breakType parameter when Field.updateBreakType(options) is called.
      * NONE: This is the default value for field break type.
@@ -137,15 +202,15 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * STARTROW: This value places a field located outside of a field group on a new row. This value only works on fields with a Field Layout Type set to OUTSIDE, OUTSIDEABOVE or OUTSIDEBELOW. For more information, see serverWidget.FieldLayoutType and Field.updateLayoutType(options).
      * @enum {string}
      * @readonly
-     */    
+     */
     function serverWidgetFieldBreakType() {
         this.NONE = 'NONE';
         this.STARTCOL = 'STARTCOL';
         this.STARTROW = 'STARTROW';
     }
-    
-    serverWidget.prototype.FieldBreakType = new serverWidgetFieldBreakType();    
-    
+
+    serverWidget.prototype.FieldBreakType = new serverWidgetFieldBreakType();
+
     /**
      * Enumeration that holds the string values for the supported types of field layouts. This enum is used to set the value of the layoutType parameter when Field.updateLayoutType(options) is called.
      * STARTROW: This value makes the field appear first in a horizontally aligned field group in the normal field layout.
@@ -157,7 +222,7 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * NORMAL: This value makes the fields appear in its default position.
      * @enum {string}
      * @readonly
-     */    
+     */
     function serverWidgetFieldLayoutType() {
         this.NORMAL = 'NORMAL';
         this.OUTSIDE = 'OUTSIDE';
@@ -167,9 +232,9 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
         this.MIDROW = 'MIDROW';
         this.ENDROW = 'ENDROW';
     }
-    
-    serverWidget.prototype.FieldLayoutType = new serverWidgetFieldLayoutType();    
-    
+
+    serverWidget.prototype.FieldLayoutType = new serverWidgetFieldLayoutType();
+
     /**
      * Enumeration that holds the string values for supported field display types. This enum is used to set the value of the displayType parameter when Field.updateDisplayType(options) is called.
      * DISABLED: Prevents a user from changing the field
@@ -180,7 +245,7 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * READONLY: The field is disabled but it is still selectable and scrollable (for textarea fields)
      * @enum {string}
      * @readonly
-     */    
+     */
     function serverWidgetFieldDisplayType() {
         this.NORMAL = 'NORMAL';
         this.HIDDEN = 'HIDDEN';
@@ -190,9 +255,9 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
         this.INLINE = 'INLINE';
         this.NODISPLAY = 'NODISPLAY';
     }
-    
-    serverWidget.prototype.FieldDisplayType = new serverWidgetFieldDisplayType();    
-    
+
+    serverWidget.prototype.FieldDisplayType = new serverWidgetFieldDisplayType();
+
     /**
      * Enumeration that holds the string values for supported sublist display types. This enum is used to set the value of the Sublist.displayType property.
      * @enum {string}
@@ -202,34 +267,34 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
         this.NORMAL = 'NORMAL';
         this.HIDDEN = 'HIDDEN';
     }
-    
+
     serverWidget.prototype.SublistDisplayType = new serverWidgetSublistDisplayType();    
-    
+
     /**
      * Enumeration that holds the string values for supported justification layouts. This enum is used to set the value of the align parameter when List.addColumn(options) is called.
      * @enum {string}
      * @readonly
-     */    
+     */
     function serverWidgetLayoutJustification() {
         this.CENTER = 'CENTER';
         this.LEFT = 'LEFT';
         this.RIGHT = 'RIGHT';
     }
-    
+
     serverWidget.prototype.LayoutJustification = new serverWidgetLayoutJustification();    
-    
+
     /**
      * Enumeration that holds the string values for supported list styles. This enum is used to set the value of the List.style property.
      * @enum {string}
      * @readonly
-     */    
+     */
     function serverWidgetListStyle() {
         this.GRID = 'grid';
         this.REPORT = 'report';
         this.PLAIN = 'plain';
         this.NORMAL = 'normal';
     }
-    
+
     serverWidget.prototype.ListStyle = new serverWidgetListStyle();    
     
     /**
@@ -238,7 +303,7 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
      * In a non-sequential process (steps are unordered), jump is used to move to the user’s last action.
      * @enum {string}
      * @readonly
-     */    
+     */
     function serverWidgetAssistantSubmitAction() {
         this.NEXT = 'next';
         this.BACK = 'back';
@@ -246,9 +311,21 @@ define(['./AssistantInstance', './FormInstance', './ListInstance'], function(Ass
         this.FINISH = 'finish';
         this.JUMP = 'jump';
     }
-    
+
     serverWidget.prototype.AssistantSubmitAction = new serverWidgetAssistantSubmitAction();    
-    
+
+    function validateFail(type, name, message) {
+        return {
+            "type": type,
+            "name": name,
+            "message": message,
+            "cause": {
+                "name": name,
+                "message": message
+            }
+        };
+    }
+
     /**
      * @exports N/ui/serverWidget
      * @namespace serverWidget

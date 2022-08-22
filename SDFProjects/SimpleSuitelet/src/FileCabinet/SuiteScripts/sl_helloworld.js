@@ -18,23 +18,39 @@ define([
             });
             let parameters = context.request.parameters;
             log.debug('Parameters', parameters);
-            if (context.request.method === 'GET') {
-                let customerId = parameters.customerid;
-                log.audit('Customer Id', customerId);
-                buildGetForm(form, customerId);
-            } else {
-                let helloText = parameters.custpage_hello;
-                let customerId = parameters.custpage_customerid;
-                let savedId = record.submitFields({
-                    type: record.Type.CUSTOMER,
-                    id: customerId,
-                    values: {
-                        comments: helloText
-                    }
+            try {
+                if (context.request.method === 'GET') {
+                    let customerId = parameters.customerid;
+                    log.audit('Customer Id', customerId);
+                    buildGetForm(form, customerId);
+                } else {
+                    let helloText = parameters.custpage_hello;
+                    let customerId = parameters.custpage_customerid;
+                    let savedId = record.submitFields({
+                        type: record.Type.CUSTOMER,
+                        id: customerId,
+                        values: {
+                            comments: helloText
+                        }
+                    });
+                    log.audit('Cust Saved', savedId);
+                    let customerLookup = getCustomerDetails(customerId);
+                    buildPostForm(form, customerLookup);
+                }
+            } catch (e) {
+                form = serverWidget.createForm({
+                    title: 'Hello World Error',
+                    hideNavbar: false
                 });
-                log.audit('Cust Saved', savedId);
-                let customerLookup = getCustomerDetails(customerId);
-                buildPostForm(form, customerLookup);
+                form.addField({
+                    id: 'custpage_error',
+                    type: serverWidget.FieldType.TEXTAREA,
+                    label: 'Form Error'
+                })
+                .updateDisplayType({
+                    displayType: serverWidget.FieldDisplayType.INLINE
+                })
+                .defaultValue = `Error Title: ${e.name}\nError Message: ${e.message}`;
             }
             context.response.writePage(form);
             return;

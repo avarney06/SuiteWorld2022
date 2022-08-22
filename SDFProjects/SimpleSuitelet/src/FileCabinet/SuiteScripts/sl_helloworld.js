@@ -51,6 +51,7 @@ define([
                     displayType: serverWidget.FieldDisplayType.INLINE
                 })
                 .defaultValue = `Error Title: ${e.name}\nError Message: ${e.message}`;
+                log.error(e);
             }
             context.response.writePage(form);
             return;

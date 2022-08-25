@@ -52,6 +52,7 @@ define([
                 })
                 .defaultValue = `Error Title: ${e.name}\nError Message: ${e.message}`;
                 log.error(e);
+                log.debug('neat');
             }
             context.response.writePage(form);
             return;
